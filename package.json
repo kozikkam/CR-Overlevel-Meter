@@ -1,0 +1,20 @@
+{
+  "name": "cr-overlevel-meter",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./app.js"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "hjs": "~0.0.6",
+    "http-errors": "~1.6.2",
+    "less-middleware": "~2.2.1",
+    "morgan": "~1.9.0",
+    "request-promise": "^4.2.2",
+    "sequelize": "^4.38.0",
+    "sqlite3": "^4.0.1"
+  }
+}

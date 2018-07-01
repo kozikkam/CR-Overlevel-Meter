@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>Clash Royale Overlevel Meter</title>
+ 
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/index.css">
+ 
+ 
+</head>
+ 
+<body>
+
+    <div class="jumbotron jumbotron-hero">
+      <div class="container">
+        <h2 class="display-4 text-center mb-2">Clash Royale Overlevel Meter</h2>
+        <div class="lead">
+            <form class="input-group mb-3 center" method="GET" action="/view-player">
+                <input type="text" name="tag" class="form-control" placeholder="Player Tag #XXXXXXXX" aria-label="Player Tag #XXXXXXXX" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                <button class="btn btn-outline-secondary btn-white" type="submit"><i class="fa fa-search"></i></button>
+              </form>
+            </div>
+        </div>
+      </div>
+    </div>
+</body>
+ 
+</html>

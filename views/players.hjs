@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>Clash Royale Overlevel Meter</title>
+ 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/players.css">
+
+    <script type="text/javascript">
+
+    // Load the Visualization API and the corechart package.
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Rarity', 'Friendly', 'Enemy'],
+            ['Common', {{avg_levels.friendly.Common}}, {{avg_levels.opponent.Common}} ],
+            ['Rare', {{avg_levels.friendly.Rare}}, {{avg_levels.opponent.Rare}} ],
+            ['Epic', {{avg_levels.friendly.Epic}}, {{avg_levels.opponent.Epic}} ],
+            ['Legendary', {{avg_levels.friendly.Legendary}}, {{avg_levels.opponent.Legendary}} ]
+        ]);
+
+          var options = {
+            title: "Average levels",
+            legend: { position: "top" },
+            chartArea: {width: '80%', height: '80%'},
+          };
+
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_average_levels"));
+    chart.draw(data, options);
+    }
+    </script>
+
+    <script type="text/javascript">
+
+    // Load the Visualization API and the corechart package.
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Rarity', 'Friendly', 'Enemy'],
+            ['Common', {{median_levels.friendly.Common}}, {{median_levels.opponent.Common}}],
+            ['Rare', {{median_levels.friendly.Rare}}, {{median_levels.opponent.Rare}}],
+            ['Epic', {{median_levels.friendly.Epic}}, {{median_levels.opponent.Epic}}],
+            ['Legendary', {{median_levels.friendly.Legendary}}, {{median_levels.opponent.Legendary}}]
+        ]);
+
+          var options = {
+            title: "Median levels",
+            legend: { position: "top" },
+            chartArea: {width: '80%', height: '80%'},
+          };
+
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_median_levels"));
+    chart.draw(data, options);
+    }
+    </script>
+</head>
+ 
+<body>
+    <div class="row" style="margin-bottom: 2rem;">
+        <div class="container" style="background: url('/images/king_background.png'); background-size: cover;">
+            <div class="col">
+                <h3 style="color: white; font-weight: bold; display: inline;">{{username}} </h3><span class="king-tower">{{king_level}}</span>
+                <p style="color: white">#{{tag}}</p>
+                <p style="color: white">{{trophies}} / {{maxTrophies}} PB <img class="tiny-img" src="/images/trophy.png"></p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <div class="lead">
+                <div class="row">
+                    <div class="col-lg-6" style="display: inline-block;">
+                        <div id="columnchart_average_levels" style="width: 100%; height: 500px;"></div>
+                    </div>
+                    <div class="col-lg-6" style="display: inline-block;">
+                        <div id="columnchart_median_levels" style="width: 100%; height: 500px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+ 
+</html>

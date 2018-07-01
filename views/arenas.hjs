@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>Clash Royale Overlevel Meter</title>
+ 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/arenas.css">
+
+    <script type="text/javascript">
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Arena', 'Commons', 'Rares', 'Epics', 'Legendaries'],
+            {{#data}}
+            ['{{ arena_name }}',  {{ levels.commons }}, {{ levels.rares }}, {{ levels.epics }}, {{ levels.legendaries }}],
+            {{/data}}
+        ]);
+
+        var options = {
+            title: 'Median card levels in each arena',
+            curveType: 'function',
+            legend: { position: 'bottom' },
+            vAxis: {
+                ticks: [0, 6, 12, 18]
+            }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('line_chart_levels'));
+
+        chart.draw(data, options);
+    }
+    </script>
+
+ 
+ 
+</head>
+ 
+<body>
+    <div class="container">
+        <div class="lead">
+            <div id="line_chart_levels" style="width: 100%; height: 600px;"></div>
+        </div>
+    </div>
+</body>
+ 
+</html>
