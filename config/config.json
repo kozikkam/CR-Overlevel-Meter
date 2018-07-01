@@ -1,0 +1,20 @@
+{
+    "development": {
+        "username": "manager",
+        "password": null,
+        "database": "manager-dev",
+        "host": "localhost",
+        "port": 5000,
+        "dialect": "sqlite",
+        "developerKey": "developerKeyGoesHere (get it from royaleapi discord)",
+        "royaleApi": "https://api.royaleapi.com/"
+    },
+    "test": {
+        "username": "manager",
+        "password": null,
+        "database": "manager-test",
+        "host": "localhost",
+        "port": 5000,
+        "dialect": "sqlite"
+    }
+}
