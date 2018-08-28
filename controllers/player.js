@@ -6,13 +6,13 @@ const config = require('../config/config');
 const median = require('./helpers');
 
 async function requestJson(url, method='GET') {
-    var options = {
+    let options = {
         method: method,
         url: url,
         headers: { auth: config["developerKey"] }
     };
     try{
-        var data = await request(options);
+        let data = await request(options);
     } catch(err) {
         console.log(err);
         return null;
@@ -21,16 +21,16 @@ async function requestJson(url, method='GET') {
 }
 
 function getAllLevels(player_json) {
-    var total = {'friendly': {'Common': [], 'Rare': [], 'Epic': [], 'Legendary': []},
+    let total = {'friendly': {'Common': [], 'Rare': [], 'Epic': [], 'Legendary': []},
         'opponent': {'Common': [], 'Rare': [], 'Epic': [], 'Legendary': []}};
     for(var match of player_json){
         if(match['type'] == 'PvP'){
             for(var card of match['team'][0]['deck']){
-                var rarity = card['rarity'];
+                let rarity = card['rarity'];
                 total['friendly'][rarity].push(card['level']);
             }
             for(var card of match['opponent'][0]['deck']){
-                var rarity = card['rarity'];
+                let rarity = card['rarity'];
                 total['opponent'][rarity].push(card['level']);
             }
         }
@@ -39,15 +39,15 @@ function getAllLevels(player_json) {
 }
 
 function getAllLevelsWithTrophies(player_json) {
-    var total = {'opponent': {'Common': [], 'Rare': [], 'Epic': [], 'Legendary': []}};
-    var trophies = [];
-    var iters = 0;
+    let total = {'opponent': {'Common': [], 'Rare': [], 'Epic': [], 'Legendary': []}};
+    let trophies = [];
+    let iters = 0;
     for(var match of player_json){
         if(match['type'] == 'PvP'){
             iters++;
             trophies.push(match['opponent'][0]['startTrophies']);
             for(var card of match['opponent'][0]['deck']){
-                var rarity = card['rarity'];
+                let rarity = card['rarity'];
                 total['opponent'][rarity].push(card['level']);
             }
         }
@@ -62,14 +62,14 @@ function getAllLevelsWithTrophies(player_json) {
             total['opponent'][rarity].push(0);
         }
     }
-    var trophies_average = trophies.reduce((acc, el) => {return acc+el}, 0) / trophies.length;
+    let trophies_average = trophies.reduce((acc, el) => {return acc+el}, 0) / trophies.length;
     return [total, trophies_average];
 }
 
 // takes: total_average format of data
 // returns: same format, with average levels instead of lists
 function getAverageLevels(data) {
-    var total_average = {'friendly': {'Common': [], 'Rare': [], 'Epic': [], 'Legendary': []},
+    let total_average = {'friendly': {'Common': [], 'Rare': [], 'Epic': [], 'Legendary': []},
     'opponent': {'Common': [], 'Rare': [], 'Epic': [], 'Legendary': []}};
     for([side, rarities] of Object.entries(data)){
         for([rarity, levels] of Object.entries(rarities)){
@@ -86,7 +86,7 @@ function getAverageLevels(data) {
 // takes: total_median format of data
 // returns: same format, with median levels instead of lists
 function getMedianLevels(data) {
-    var total_median = {'friendly': {'Common': [], 'Rare': [], 'Epic': [], 'Legendary': []},
+    let total_median = {'friendly': {'Common': [], 'Rare': [], 'Epic': [], 'Legendary': []},
     'opponent': {'Common': [], 'Rare': [], 'Epic': [], 'Legendary': []}};
     for([side, rarities] of Object.entries(data)){
         for([rarity, levels] of Object.entries(rarities)){
@@ -99,15 +99,15 @@ function getMedianLevels(data) {
 module.exports = {
     async getOne(req, res) {
         // get total player's levels and opponents' levels
-        var tag = req.query.tag;
-        var data = await requestJson(config['royaleApi']+`player/${tag}/battles`);
+        let tag = req.query.tag;
+        let data = await requestJson(config['royaleApi']+`player/${tag}/battles`);
 
-        var total = getAllLevels(data);
-        var total_average = getAverageLevels(total);
-        var total_median = getMedianLevels(total);
+        let total = getAllLevels(data);
+        let total_average = getAverageLevels(total);
+        let total_median = getMedianLevels(total);
 
         // get additional player data to display
-        var data2 = await requestJson(config['royaleApi']+`player/${tag}`);
+        let data2 = await requestJson(config['royaleApi']+`player/${tag}`);
 
         all_data = {avg_levels: total_average,
             median_levels: total_median,
@@ -121,21 +121,21 @@ module.exports = {
 
     async update(req, res) {
         arenas = await Arena.findAll();
-        for(var points=16000; points<=30000; points+=4000) {
+        for(let points=16000; points<=30000; points+=4000) {
             console.log('processing for '+points);
-            var search_results = await requestJson(config['royaleApi']+`clan/search?score=${points}&minMembers=30`);
+            let search_results = await requestJson(config['royaleApi']+`clan/search?score=${points}&minMembers=30`);
             if(search_results == null){
                 console.log(`Error for ${points} at clan search`);
                 continue;
             }
-            var clan = await requestJson(config['royaleApi']+`clan/${search_results[0]['tag']}`);
+            let clan = await requestJson(config['royaleApi']+`clan/${search_results[0]['tag']}`);
             if(clan == null){
                 console.log(`Error for ${points} at clan requesting`);
                 continue;
             }
             for(const member of clan['members']) {
                 console.log(member['name']);
-                var member_battles = await requestJson(config['royaleApi']+`player/${member['tag']}/battles`);
+                let member_battles = await requestJson(config['royaleApi']+`player/${member['tag']}/battles`);
                 if(member_battles == null){
                     console.log(`Error for ${member['tag']}`);
                     continue;
