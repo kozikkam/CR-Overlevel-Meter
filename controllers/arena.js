@@ -3,7 +3,6 @@ const median = require('./helpers');
 
 module.exports = {
     createArenas(req, res) {
-        // the awkward part
         let a1 = Arena
             .create({
                 arena_name: "Goblin Stadium",
@@ -108,7 +107,7 @@ module.exports = {
             });
 
         Promise.all([a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17])
-        .then(() => res.status(200).send("OK"));
+            .then(() => res.status(200).send("OK"));
     },
 
     async viewArenas(req, res) {
@@ -120,12 +119,14 @@ module.exports = {
             let rares = [];
             let epics = [];
             let legendaries = [];
+            
             for(const player of await arena.getPlayers()) {
                 commons.push(player.commons_median);
                 rares.push(player.rares_median);
                 epics.push(player.epics_median);
                 legendaries.push(player.legendaries_median);
             }
+            
             data.push({
                 arena_name: arena.arena_name,
                 levels: {
@@ -136,6 +137,7 @@ module.exports = {
                 }
             });
         }
+        
         return {data: data};
     }
 };
